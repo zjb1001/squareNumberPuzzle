@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Math Puzzle Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="game-container">
+        <h1>Math Puzzle Game</h1>
+        <div class="stats">
+            <p>Score: {{ score }}</p>
+            <p>Level: {{ level }}</p>
+        </div>
+        
+        {% if feedback %}
+        <div class="feedback">
+            {{ feedback }}
+        </div>
+        {% endif %}
+        
+        <div class="problem">
+            <h2>Solve this:</h2>
+            <p>{{ problem }}</p>
+        </div>
+        
+        <form action="/check" method="POST">
+            <input type="text" name="answer" autofocus placeholder="Your answer...">
+            <button type="submit">Submit</button>
+        </form>
+        
+        <a href="/reset" class="reset-button">Start Over</a>
+    </div>
+</body>
+</html>
