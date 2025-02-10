@@ -1,15 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Math Puzzle Game</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Game</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        function updateMaxLimit(value) {
+            fetch('/update_max_limit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'max_limit=' + value
+            });
+        }
+    </script>
 </head>
 <body>
     <div class="game-container">
-        <h1>Math Puzzle Game</h1>
+        <h1>Math Game</h1>
         <div class="stats">
             <p>Score: {{ score }}</p>
             <p>Level: {{ level }}</p>
+            <p>
+                Max Limit:
+                <input type="number" id="max_limit" name="max_limit" value="{{ max_limit }}" 
+                       onchange="updateMaxLimit(this.value)" style="width: 50px;">
+            </p>
         </div>
         
         {% if feedback %}
@@ -29,6 +47,10 @@
         </form>
         
         <a href="/reset" class="reset-button">Start Over</a>
+        
+        {% if elapsed_time %}
+        <p>Time: {{ elapsed_time }} seconds</p>
+        {% endif %}
     </div>
 </body>
 </html>
